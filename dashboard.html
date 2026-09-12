@@ -1,66 +1,40 @@
-<script>
-    // Show the signed-in user's initial in the avatar
-    try {
-        const email = localStorage.getItem('mt_user_email');
-        if (email) {
-            const initial = email.charAt(0).toUpperCase();
-            const avatar = document.querySelector('.avatar');
-            if (avatar) avatar.textContent = initial;
-        }
-    } catch (_) {}
-</script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Mega Traders — Dashboard</title>
+<link rel="stylesheet" href="styles.css">
 <style>
     /* ============================================================
-       DESIGN TOKENS
+       DASHBOARD OVERRIDES + APP-SPECIFIC STYLES
        ============================================================ */
+
+    /* Dashboard uses a lighter outer shell + different accent */
     :root {
-        --bg-app:       #0e0e0e;
-        --bg-card:      #1c1c1c;
-        --bg-elevated:  #252525;
-        --border-color: #2a2a2a;
-        --text-main:    #ffffff;
-        --text-muted:   #9ca3af;
-        --text-dim:     #6b7280;
-        --brand-red:    #ff444f;
+        --bg-color:       #1a1a1a;   /* outer shell */
+        --card-bg:        #1c1c1c;
+        --border-color:   #2a2a2a;
+        --text-main:      #ffffff;
+        --text-muted:     #9ca3af;
+
+        --bg-app:         #0e0e0e;
+        --bg-elevated:    #252525;
+        --text-dim:       #6b7280;
+        --brand-red:      #ff444f;
         --brand-red-dark: #d32f2f;
-        --accent-green: #4ade80;
-        --radius:       16px;
-        --radius-sm:    10px;
-        --shadow:       0 8px 24px rgba(0, 0, 0, 0.45);
+
+        --radius:    16px;
+        --radius-sm: 10px;
+        --shadow:    0 8px 24px rgba(0, 0, 0, 0.45);
     }
 
-    /* ============================================================
-       RESET
-       ============================================================ */
-    *, *::before, *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                     Helvetica, Arial, sans-serif;
-    }
-
-    html,  {
-        background-color: #1a1a1a;
-        color: var(--text-main);
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
+    body {
         min-height: 100vh;
+        line-height: 1.5;
     }
 
-    ul       { list-style: none; }
-    a        { color: inherit; text-decoration: none; }
-    button   { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-    img, svg { display: block; max-width: 100%; }
-
-    /* ============================================================
-       MOBILE APP SHELL
-       ============================================================ */
+    /* ---- App shell ---- */
     .app {
         width: 100%;
         max-width: 480px;
@@ -70,12 +44,10 @@
         position: relative;
         display: flex;
         flex-direction: column;
-        padding-bottom: 84px; /* space for fixed bottom nav */
+        padding-bottom: 84px;
     }
 
-    /* ============================================================
-       TOP BAR
-       ============================================================ */
+    /* ---- Top bar ---- */
     .top-bar {
         display: flex;
         align-items: center;
@@ -84,11 +56,12 @@
         padding: 16px 20px;
     }
 
+    /* Dashboard avatar (overrides shared .avatar with background shorthand) */
     .avatar {
         width: 36px;
         height: 36px;
         border-radius: 50%;
-        background-color: var(--bg-elevated);
+        background: var(--bg-elevated);
         display: grid;
         place-items: center;
         font-size: 13px;
@@ -125,7 +98,6 @@
         gap: 14px;
         color: var(--text-muted);
     }
-
     .top-actions svg {
         width: 20px;
         height: 20px;
@@ -139,7 +111,6 @@
         display: grid;
         place-items: center;
     }
-
     .notif-badge {
         position: absolute;
         top: -4px;
@@ -157,9 +128,7 @@
         border: 2px solid var(--bg-app);
     }
 
-    /* ============================================================
-       MAIN CONTENT
-       ============================================================ */
+    /* ---- Main content ---- */
     .content {
         padding: 8px 20px 24px;
         display: flex;
@@ -167,9 +136,9 @@
         gap: 28px;
     }
 
-    /* ---- Deposit Banner ---- */
+    /* ---- Deposit banner ---- */
     .deposit-banner {
-        background-color: var(--bg-card);
+        background-color: var(--bg-elevated);
         border-radius: var(--radius);
         padding: 22px;
         display: flex;
@@ -179,21 +148,18 @@
         position: relative;
         overflow: hidden;
     }
-
     .deposit-text {
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: 14px;
     }
-
     .deposit-text h2 {
         font-size: 20px;
         font-weight: 800;
         letter-spacing: -0.02em;
         line-height: 1.2;
     }
-
     .progress-track {
         width: 100%;
         max-width: 200px;
@@ -202,14 +168,12 @@
         border-radius: 999px;
         overflow: hidden;
     }
-
     .progress-fill {
         width: 18%;
         height: 100%;
         background-color: var(--accent-green);
         border-radius: 999px;
     }
-
     .btn-deposit {
         align-self: flex-start;
         padding: 10px 22px;
@@ -225,13 +189,12 @@
         background-color: var(--brand-red-dark);
         transform: translateY(-1px);
     }
-
     .deposit-illustration {
         width: 90px;
         flex-shrink: 0;
     }
 
-    /* ---- Section Header ---- */
+    /* ---- Section title ---- */
     .section-title {
         font-size: 18px;
         font-weight: 800;
@@ -239,15 +202,14 @@
         margin-bottom: 14px;
     }
 
-    /* ---- Accounts Grid ---- */
+    /* ---- Accounts grid ---- */
     .accounts-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 14px;
     }
-
     .account-card {
-        background-color: var(--bg-card);
+        background-color: var(--bg-elevated);
         border-radius: var(--radius);
         padding: 16px;
         display: flex;
@@ -257,10 +219,9 @@
         cursor: pointer;
     }
     .account-card:hover {
-        background-color: #202020;
+        background-color: #2a2a2a;
         transform: translateY(-2px);
     }
-
     .account-icon {
         width: 44px;
         height: 44px;
@@ -274,9 +235,7 @@
         letter-spacing: -0.02em;
         line-height: 1;
     }
-
     .account-icon svg { width: 20px; height: 20px; }
-
     .account-name {
         font-size: 14px;
         font-weight: 700;
@@ -287,7 +246,6 @@
         color: var(--text-dim);
         font-weight: 500;
     }
-
     .account-balance {
         font-size: 15px;
         font-weight: 700;
@@ -300,9 +258,9 @@
         margin-left: 2px;
     }
 
-    /* ---- Promo Card ---- */
+    /* ---- Promo card ---- */
     .promo-card {
-        background-color: var(--bg-card);
+        background-color: var(--bg-elevated);
         border-radius: var(--radius);
         padding: 20px;
         display: flex;
@@ -311,34 +269,29 @@
         gap: 16px;
         position: relative;
     }
-
     .promo-content {
         flex: 1;
         display: flex;
         flex-direction: column;
         gap: 8px;
     }
-
     .promo-content h3 {
         font-size: 16px;
         font-weight: 800;
         letter-spacing: -0.01em;
         line-height: 1.25;
     }
-
     .promo-content p {
         font-size: 13px;
         color: var(--text-muted);
         line-height: 1.45;
     }
-
     .promo-logos {
         display: flex;
         align-items: center;
         gap: 10px;
         flex-shrink: 0;
     }
-
     .logo-deriv {
         width: 44px;
         height: 44px;
@@ -351,7 +304,6 @@
         font-weight: 900;
         letter-spacing: -0.04em;
     }
-
     .logo-tv {
         position: relative;
         width: 44px;
@@ -376,7 +328,6 @@
         gap: 6px;
         margin-top: 14px;
     }
-
     .carousel-dots span {
         width: 6px;
         height: 6px;
@@ -389,9 +340,7 @@
         border-radius: 999px;
     }
 
-    /* ============================================================
-       BOTTOM NAVIGATION
-       ============================================================ */
+    /* ---- Bottom nav ---- */
     .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -407,7 +356,6 @@
         padding: 10px 8px 14px;
         z-index: 100;
     }
-
     .nav-item {
         display: flex;
         flex-direction: column;
@@ -421,27 +369,16 @@
         transition: color 0.2s ease;
         cursor: pointer;
     }
-
     .nav-item svg {
         width: 22px;
         height: 22px;
         stroke-width: 2;
     }
+    .nav-item.active { color: var(--brand-red); }
+    .nav-item:hover { color: var(--text-main); }
+    .nav-item.active:hover { color: var(--brand-red); }
 
-    .nav-item.active {
-        color: var(--brand-red);
-    }
-
-    .nav-item:hover {
-        color: var(--text-main);
-    }
-    .nav-item.active:hover {
-        color: var(--brand-red);
-    }
-
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
+    /* ---- Responsive ---- */
     @media (max-width: 380px) {
         .content { padding: 8px 14px 24px; }
         .top-bar { padding: 14px; }
@@ -449,36 +386,26 @@
         .deposit-text h2 { font-size: 17px; }
         .deposit-illustration { width: 70px; }
     }
-
-    @media (prefers-reduced-motion: reduce) {
-        *, *::before, *::after {
-            transition-duration: 0.001ms !important;
-            animation-duration: 0.001ms !important;
-        }
-    }
 </style>
 </head>
-<>
+<body>
 
 <div class="app">
 
-    <!-- ===== Top Bar ===== -->
     <header class="top-bar">
-        <div class="avatar">KB</div>
+        <a href="index.html" class="avatar" id="avatar">KB</a>
 
         <button class="ask-amy">
             <span class="sparkle">✦</span> Ask Amy
         </button>
 
         <div class="top-actions">
-            <!-- Eye / visibility -->
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Toggle balance visibility">
                 <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/>
                 <circle cx="12" cy="12" r="3"/>
             </svg>
 
-            <!-- Notification bell -->
             <div class="icon-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-label="Notifications">
@@ -490,10 +417,8 @@
         </div>
     </header>
 
-    <!-- ===== Main Content ===== -->
     <main class="content">
 
-        <!-- Deposit Banner -->
         <section class="deposit-banner">
             <div class="deposit-text">
                 <h2>Make your first deposit</h2>
@@ -505,10 +430,8 @@
 
             <div class="deposit-illustration">
                 <svg viewBox="0 0 90 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <!-- L-shaped grey platform -->
                     <path d="M15 65 L75 65 L75 70 L15 70 Z" fill="#4a4a4a"/>
                     <path d="M15 15 L15 65 L20 65 L20 20 L75 20 L75 15 Z" fill="#4a4a4a"/>
-                    <!-- Three red figures (simplified) -->
                     <g fill="#ff444f">
                         <circle cx="38" cy="28" r="4"/>
                         <rect x="34" y="34" width="8" height="14" rx="3"/>
@@ -521,20 +444,16 @@
             </div>
         </section>
 
-        <!-- Trading Accounts -->
         <section>
             <h2 class="section-title">My trading accounts</h2>
 
             <div class="accounts-grid">
-
-                <!-- CFDs | Standard -->
                 <div class="account-card">
                     <div class="account-icon">MT5<br><small style="font-size:8px;font-weight:600;opacity:0.8;">STD</small></div>
                     <div class="account-name">CFDs <span>| Standard</span></div>
                     <div class="account-balance">0.00 <span class="currency">USD</span></div>
                 </div>
 
-                <!-- Options -->
                 <div class="account-card">
                     <div class="account-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -546,11 +465,9 @@
                     <div class="account-name">Options</div>
                     <div class="account-balance">0.00 <span class="currency">USD</span></div>
                 </div>
-
             </div>
         </section>
 
-        <!-- Promo Card -->
         <section>
             <div class="promo-card">
                 <div class="promo-content">
@@ -567,7 +484,6 @@
                 </div>
             </div>
 
-            <!-- Carousel dots -->
             <div class="carousel-dots" aria-hidden="true">
                 <span class="active"></span>
                 <span></span>
@@ -577,7 +493,6 @@
 
     </main>
 
-    <!-- ===== Bottom Navigation ===== -->
     <nav class="bottom-nav" aria-label="Main navigation">
         <a class="nav-item active" href="#">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -618,5 +533,17 @@
 
 </div>
 
-</>
+<script>
+    // Show the signed-in user's initial in the avatar
+    try {
+        const email = localStorage.getItem('mt_user_email');
+        if (email) {
+            const initial = email.charAt(0).toUpperCase();
+            const avatar = document.getElementById('avatar');
+            if (avatar) avatar.textContent = initial;
+        }
+    } catch (_) {}
+</script>
+
+</body>
 </html>
