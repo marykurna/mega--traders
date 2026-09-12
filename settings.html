@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Settings — Mega Traders</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+<style>
+    /* ---- Settings-page-specific ---- */
+    .settings-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 20px 8px;
+    }
+    .back-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: var(--bg-elevated);
+        display: grid;
+        place-items: center;
+        color: var(--text-main);
+        transition: background-color 0.2s ease;
+    }
+    .back-btn:hover { background-color: #2e2e2e; }
+    .settings-header h1 {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+    }
+
+    /* ---- Profile card ---- */
+    .profile-card {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background-color: var(--bg-elevated);
+        border-radius: var(--radius);
+        padding: 20px;
+    }
+    .avatar-large {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--brand-red), #ff7a82);
+        color: #ffffff;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        flex-shrink: 0;
+    }
+    .profile-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+    }
+    .profile-name {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text-main);
+        letter-spacing: -0.01em;
+    }
+    .profile-email {
+        font-size: 13px;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .profile-balance {
+        font-size: 12px;
+        color: var(--accent-green);
+        font-weight: 700;
+        margin-top: 2px;
+    }
+
+    /* ---- Settings sections ---- */
+    .settings-section-title {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 10px;
+        padding-left: 4px;
+    }
+    .settings-list {
+        display: grid;
+        gap: 8px;
+    }
+    .settings-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background-color: var(--bg-elevated);
+        border-radius: 14px;
+        padding: 15px 16px;
+        transition: background-color 0.15s ease;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        text-align: left;
+        font: inherit;
+        color: inherit;
+    }
+    .settings-row:hover { background-color: #2a2a2a; }
+
+    .row-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background-color: #2f2f2f;
+        display: grid;
+        place-items: center;
+        color: var(--text-muted);
+        flex-shrink: 0;
+    }
+    .row-body {
+        flex: 1;
+        min-width: 0;
+    }
+    .row-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-main);
+        line-height: 1.3;
+    }
+    .row-sub {
+        font-size: 12px;
+        color: var(--text-muted);
+        margin-top: 2px;
+        line-height: 1.4;
+    }
+    .row-chevron {
+        width: 16px;
+        height: 16px;
+        color: var(--text-dim);
+        flex-shrink: 0;
+    }
+
+    /* ---- Sign out ---- */
+    .signout-area {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .btn-signout {
+        width: 100%;
+        padding: 15px;
+        border-radius: 14px;
+        background-color: transparent;
+        border: 1px solid rgba(255, 68, 79, 0.4);
+        color: var(--brand-red);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-signout:hover {
+        background-color: rgba(255, 68, 79, 0.08);
+        border-color: var(--brand-red);
+    }
+    .btn-signout.confirming {
+        background-color: var(--brand-red);
+        border-color: var(--brand-red);
+        color: #ffffff;
+    }
+    .signout-note {
+        font-size: 12px;
+        color: var(--text-dim);
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    .app-version {
+        text-align: center;
+        font-size: 11px;
+        color: var(--text-dim);
+        padding: 8px 0 4px;
+    }
+</style>
+</head>
+<body>
+<div class="app">
+
+    <header class="settings-header">
+        <a href="dashboard.html" class="back-btn" aria-label="Back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                 stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+            </svg>
+        </a>
+        <h1>Settings</h1>
+    </header>
+
+    <main class="content">
+
+        <section>
+            <div class="profile-card">
+                <div class="avatar-large" id="avatarLarge">KB</div>
+                <div class="profile-info">
+                    <div class="profile-name" id="profileName">Guest user</div>
+                    <div class="profile-email" id="profileEmail">Not signed in</div>
+                    <div class="profile-balance" id="profileBalance">$0.00</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="settings-section-title">Account</h2>
+            <div class="settings-list">
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="4"/>
+                            <path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Profile</div>
+                        <div class="row-sub">Name, email, avatar</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="10" rx="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Security</div>
+                        <div class="row-sub">Password, 2FA, devices</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Verification</div>
+                        <div class="row-sub">Identity, address, source of funds</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 class="settings-section-title">Preferences</h2>
+            <div class="settings-list">
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Currency</div>
+                        <div class="row-sub">USD</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M3 12h18"/>
+                            <path d="M12 3c2.6 3 2.6 15 0 18-2.6-3-2.6-15 0-18z"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Language</div>
+                        <div class="row-sub">English (UK)</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a9 9 0 1 0 9 9"/>
+                            <path d="M21 3v6h-6"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Appearance</div>
+                        <div class="row-sub">Dark</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 class="settings-section-title">Support</h2>
+            <div class="settings-list">
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M9.1 9a3 3 0 1 1 4.2 2.7c-.8.4-1.3 1-1.3 1.8v.5"/>
+                            <path d="M12 17h.01"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Help centre</div>
+                        <div class="row-sub">Guides and FAQs</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">Contact support</div>
+                        <div class="row-sub">Live chat 24/7</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+                <button class="settings-row" type="button">
+                    <div class="row-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="9"/>
+                            <path d="M12 16v-4"/>
+                            <path d="M12 8h.01"/>
+                        </svg>
+                    </div>
+                    <div class="row-body">
+                        <div class="row-title">About Mega Traders</div>
+                        <div class="row-sub">Version 1.0.0</div>
+                    </div>
+                    <svg class="row-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                         stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 6 6 6-6 6"/>
+                    </svg>
+                </button>
+
+            </div>
+        </section>
+
+        <section class="signout-area">
+            <button class="btn-signout" id="signoutBtn" type="button">Sign out</button>
+            <p class="signout-note">
+                This will clear your session and any saved balance on this device.
+            </p>
+        </section>
+
+        <p class="app-version">Mega Traders · v1.0.0</p>
+
+    </main>
+
+</div>
+
+<script>
+    // ---------- Load profile info from localStorage ----------
+    let email = '';
+    let balance = 0;
+    try {
+        email = localStorage.getItem('mt_user_email') || '';
+        balance = parseFloat(localStorage.getItem('mt_balance')) || 0;
+    } catch (_) {}
+
+    const avatarLarge   = document.getElementById('avatarLarge');
+    const profileName   = document.getElementById('profileName');
+    const profileEmail  = document.getElementById('profileEmail');
+    const profileBalance = document.getElementById('profileBalance');
+
+    if (email) {
+        const initial = email.charAt(0).toUpperCase();
+        const userPart = email.split('@')[0];
+        const displayName = userPart.charAt(0).toUpperCase() + userPart.slice(1);
+
+        avatarLarge.textContent = initial;
+        profileName.textContent = displayName;
+        profileEmail.textContent = email;
+    } else {
+        avatarLarge.textContent = 'KB';
+        profileName.textContent = 'Guest user';
+        profileEmail.textContent = 'Not signed in';
+    }
+
+    profileBalance.textContent = '$' + balance.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    // ---------- Sign out (two-step confirm) ----------
+    const signoutBtn = document.getElementById('signoutBtn');
+    let confirming = false;
+    let confirmTimer = null;
+
+    signoutBtn.addEventListener('click', () => {
+        if (!confirming) {
+            confirming = true;
+            signoutBtn.classList.add('confirming');
+            signoutBtn.textContent = 'Tap again to sign out';
+
+            confirmTimer = setTimeout(() => {
+                confirming = false;
+                signoutBtn.classList.remove('confirming');
+                signoutBtn.textContent = 'Sign out';
+            }, 3000);
+            return;
+        }
+
+        clearTimeout(confirmTimer);
+        try {
+            localStorage.clear();
+        } catch (_) {}
+        window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>
