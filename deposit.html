@@ -344,7 +344,28 @@
         const val = parseFloat(amountInput.value);
         if (isNaN(val) || val <= 0) return;
 
-        // Read existing balance, add to it, save
+                // Read existing balance, add to it, save
+        let current = 0;
+        try {
+            current = parseFloat(localStorage.getItem('mt_balance')) || 0;
+        } catch (_) {}
+        const newBalance = current + val;
+        try {
+            localStorage.setItem('mt_balance', String(newBalance));
+        } catch (_) {}
+
+        // Log the transaction
+        try {
+            const method = document.querySelector('input[name="method"]:checked').value;
+            const transactions = JSON.parse(localStorage.getItem('mt_transactions') || '[]');
+            transactions.unshift({
+                type: 'deposit',
+                amount: val,
+                method: method,
+                date: new Date().toISOString()
+            });
+            localStorage.setItem('mt_transactions', JSON.stringify(transactions));
+        } catch (_) {}, add to it, save
         let current = 0;
         try {
             current = parseFloat(localStorage.getItem('mt_balance')) || 0;
