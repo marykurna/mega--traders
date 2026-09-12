@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — Mega Traders</title>
+<style>
+    :root {
+        --bg-color:     #0a0e12;
+        --card-bg:      #12171e;
+        --border-color: #1f2937;
+        --text-main:    #f3f4f6;
+        --text-muted:   #9ca3af;
+        --accent-orange: #f97316;
+        --accent-green:  #4ade80;
+        --accent-red:    #f87171;
+        --btn-dark:      #374151;
+        --radius-sm: 10px;
+        --radius:    14px;
+        --radius-lg: 20px;
+    }
+
+    *, *::before, *::after {
+        margin: 0; padding: 0; box-sizing: border-box;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                     Helvetica, Arial, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient glow (same as landing page) */
+    body::before {
+        content: "";
+        position: fixed; inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+            radial-gradient(700px 400px at 15% 0%, rgba(249, 115, 22, 0.13), transparent 60%),
+            radial-gradient(700px 500px at 85% 100%, rgba(74, 222, 128, 0.09), transparent 60%);
+    }
+
+    .login-wrap {
+        width: 100%;
+        max-width: 420px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Logo at the top */
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-weight: 800;
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+        margin-bottom: 32px;
+        color: var(--text-main);
+        text-decoration: none;
+    }
+    .brand-mark {
+        width: 34px; height: 34px;
+        border-radius: 9px;
+        display: grid; place-items: center;
+        background: linear-gradient(135deg, var(--accent-orange), #ea580c);
+        color: #0a0e12;
+        font-size: 1rem; font-weight: 900;
+        box-shadow: 0 8px 20px -10px rgba(249, 115, 22, 0.9);
+    }
+
+    /* Card */
+    .login-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-lg);
+        padding: 36px 32px;
+        box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.9);
+    }
+
+    .login-card h1 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+    }
+    .login-card p.sub {
+        color: var(--text-muted);
+        font-size: 0.92rem;
+        margin-bottom: 28px;
+    }
+
+    /* Tabs (Sign in / Create account) */
+    .tabs {
+        display: flex;
+        gap: 4px;
+        background-color: #0d1117;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        padding: 4px;
+        margin-bottom: 24px;
+    }
+    .tab {
+        flex: 1;
+        padding: 10px;
+        text-align: center;
+        font-size: 0.88rem;
+        font-weight: 600;
+        border-radius: 7px;
+        color: var(--text-muted);
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        border: none;
+        background: transparent;
+    }
+    .tab.active {
+        background-color: var(--btn-dark);
+        color: var(--text-main);
+    }
+    .tab:hover:not(.active) { color: var(--text-main); }
+
+    /* Form fields */
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+    .field label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-main);
+        letter-spacing: 0.01em;
+    }
+    .field input {
+        width: 100%;
+        padding: 12px 14px;
+        background-color: #0d1117;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        color: var(--text-main);
+        font-size: 0.94rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .field input:focus {
+        outline: none;
+        border-color: var(--accent-orange);
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.15);
+    }
+    .field input::placeholder { color: #4b5563; }
+
+    /* Row: remember me + forgot */
+    .form-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 24px;
+        font-size: 0.82rem;
+    }
+    .form-row label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-muted);
+        cursor: pointer;
+    }
+    .form-row input[type="checkbox"] {
+        accent-color: var(--accent-orange);
+        width: 15px; height: 15px;
+    }
+    .form-row a {
+        color: var(--accent-orange);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .form-row a:hover { text-decoration: underline; }
+
+    /* Submit button */
+    .btn-submit {
+        width: 100%;
+        padding: 13px;
+        background: linear-gradient(135deg, var(--accent-orange), #ea580c);
+        color: #0a0e12;
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 10px 30px -12px rgba(249, 115, 22, 0.9);
+        transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .btn-submit:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 36px -12px rgba(249, 115, 22, 0.95);
+    }
+    .btn-submit:active { transform: translateY(0) scale(0.99); }
+
+    /* Small helper text at the bottom */
+    .helper {
+        text-align: center;
+        margin-top: 22px;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+    .helper a {
+        color: var(--accent-orange);
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .helper a:hover { text-decoration: underline; }
+
+    /* Back to home link */
+    .back-home {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 24px;
+        font-size: 0.84rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+    .back-home:hover { color: var(--text-main); }
+
+    /* Hide signup-only fields when on sign in tab */
+    .signup-only { display: none; }
+    body.mode-signup .signup-only { display: flex; }
+    body.mode-signup .signin-only { display: none; }
+</style>
+</head>
+<body>
+
+<div class="login-wrap">
+
+    <a class="brand" href="index.html">
+        <span class="brand-mark">M</span>
+        Mega Traders
+    </a>
+
+    <div class="login-card">
+        <h1 id="formTitle">Welcome back</h1>
+        <p class="sub" id="formSub">Sign in to your Mega Traders account.</p>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" id="tabSignin" type="button">Sign in</button>
+            <button class="tab" id="tabSignup" type="button">Create account</button>
+        </div>
+
+        <!-- Form -->
+        <form id="authForm" onsubmit="return handleSubmit(event)">
+
+            <div class="field signup-only">
+                <label for="name">Full name</label>
+                <input type="text" id="name" placeholder="Jordan Smith" autocomplete="name">
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+
+            <div class="form-row signin-only">
+                <label><input type="checkbox"> Remember me</label>
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">Sign in</button>
+        </form>
+
+        <p class="helper signin-only">
+            New here? <a href="#" id="switchToSignup">Create an account</a>
+        </p>
+        <p class="helper signup-only">
+            Already have an account? <a href="#" id="switchToSignin">Sign in</a>
+        </p>
+    </div>
+
+    <a class="back-home" href="index.html">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5"/><path d="m12 19-7-7 7-7"/>
+        </svg>
+        Back to home
+    </a>
+
+</div>
+
+<script>
+    const tabSignin = document.getElementById('tabSignin');
+    const tabSignup = document.getElementById('tabSignup');
+    const formTitle = document.getElementById('formTitle');
+    const formSub   = document.getElementById('formSub');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function setMode(mode) {
+        document.body.classList.toggle('mode-signup', mode === 'signup');
+        tabSignin.classList.toggle('active', mode === 'signin');
+        tabSignup.classList.toggle('active', mode === 'signup');
+
+        if (mode === 'signup') {
+            formTitle.textContent = 'Create your account';
+            formSub.textContent   = 'Start trading in under two minutes.';
+            submitBtn.textContent = 'Create account';
+        } else {
+            formTitle.textContent = 'Welcome back';
+            formSub.textContent   = 'Sign in to your Mega Traders account.';
+            submitBtn.textContent = 'Sign in';
+        }
+    }
+
+    tabSignin.addEventListener('click', () => setMode('signin'));
+    tabSignup.addEventListener('click', () => setMode('signup'));
+    document.getElementById('switchToSignup').addEventListener('click', (e) => { e.preventDefault(); setMode('signup'); });
+    document.getElementById('switchToSignin').addEventListener('click', (e) => { e.preventDefault(); setMode('signin'); });
+
+    // Fake login: on submit, jump to dashboard and remember the user
+    function handleSubmit(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        if (email) {
+            try { localStorage.setItem('mt_user_email', email); } catch (_) {}
+        }
+        window.location.href = 'dashboard.html';
+        return false;
+    }
+</script>
+
+</body>
+</html>
