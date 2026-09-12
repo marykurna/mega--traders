@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<script>
+    // Show the signed-in user's initial in the avatar
+    try {
+        const email = localStorage.getItem('mt_user_email');
+        if (email) {
+            const initial = email.charAt(0).toUpperCase();
+            const avatar = document.querySelector('.avatar');
+            if (avatar) avatar.textContent = initial;
+        }
+    } catch (_) {}
+</script><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -35,7 +45,7 @@
                      Helvetica, Arial, sans-serif;
     }
 
-    html, body {
+    html,  {
         background-color: #1a1a1a;
         color: var(--text-main);
         line-height: 1.5;
@@ -448,7 +458,7 @@
     }
 </style>
 </head>
-<body>
+<>
 
 <div class="app">
 
@@ -608,5 +618,5 @@
 
 </div>
 
-</body>
+</>
 </html>
