@@ -1,0 +1,174 @@
+/* ============================================================
+   MEGA TRADERS — APP SHELL STYLES
+   Shared by: dashboard.html, cfds.html, options.html, portfolio.html
+   ============================================================ */
+
+/* App palette overrides (comes after styles.css, so these win) */
+:root {
+    --bg-color:       #1a1a1a;
+    --card-bg:        #1c1c1c;
+    --border-color:   #2a2a2a;
+    --text-main:      #ffffff;
+    --text-muted:     #9ca3af;
+    --bg-app:         #0e0e0e;
+    --bg-elevated:    #252525;
+    --text-dim:       #6b7280;
+    --brand-red:      #ff444f;
+    --brand-red-dark: #d32f2f;
+    --radius:    16px;
+    --radius-sm: 10px;
+    --shadow:    0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+body {
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+/* ---- App shell ---- */
+.app {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: var(--bg-app);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 84px;
+}
+
+/* ---- Top bar ---- */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 20px;
+}
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-elevated);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 0.02em;
+}
+.ask-amy {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 18px;
+    background-color: var(--bg-elevated);
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #e8e8e8;
+    transition: background-color 0.2s ease;
+}
+.ask-amy:hover { background-color: #2e2e2e; }
+.ask-amy .sparkle { color: #a78bfa; font-size: 14px; line-height: 1; }
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--text-muted);
+}
+.top-actions svg {
+    width: 20px; height: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.top-actions svg:hover { color: var(--text-main); }
+
+.icon-btn { position: relative; display: grid; place-items: center; }
+.notif-badge {
+    position: absolute;
+    top: -4px; right: -6px;
+    min-width: 16px; height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background-color: var(--brand-red);
+    color: #ffffff;
+    font-size: 10px; font-weight: 700;
+    display: grid; place-items: center;
+    border: 2px solid var(--bg-app);
+}
+
+/* ---- Content wrapper ---- */
+.content {
+    padding: 8px 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+}
+
+/* ---- Generic app card ---- */
+.app-card {
+    background-color: var(--bg-elevated);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+/* ---- Bottom nav ---- */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    background-color: var(--bg-app);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 8px 14px;
+    z-index: 100;
+}
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+.nav-item svg { width: 22px; height: 22px; stroke-width: 2; }
+.nav-item.active { color: var(--brand-red); }
+.nav-item:hover { color: var(--text-main); }
+.nav-item.active:hover { color: var(--brand-red); }
+
+/* ---- Empty-state block ---- */
+.empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--text-muted);
+}
+.empty-state svg { margin: 0 auto 12px; color: var(--text-dim); }
+.empty-state p { font-size: 14px; }
+
+/* ---- Responsive ---- */
+@media (max-width: 380px) {
+    .content { padding: 8px 14px 24px; }
+    .top-bar { padding: 14px; }
+}
