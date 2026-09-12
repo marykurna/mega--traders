@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="app.css">
 <style>
-    /* ---- Dashboard-specific ---- */
     .deposit-banner {
         background-color: var(--bg-elevated);
         border-radius: var(--radius);
@@ -43,8 +42,12 @@
         border-radius: 999px;
         transition: width 0.4s ease;
     }
+    .banner-buttons {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
     .btn-deposit {
-        align-self: flex-start;
         padding: 10px 22px;
         background-color: var(--brand-red);
         color: #ffffff;
@@ -55,6 +58,21 @@
     }
     .btn-deposit:hover {
         background-color: var(--brand-red-dark);
+        transform: translateY(-1px);
+    }
+    .btn-withdraw {
+        padding: 10px 22px;
+        background-color: transparent;
+        color: var(--brand-red);
+        border: 1px solid rgba(255, 68, 79, 0.5);
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 700;
+        transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn-withdraw:hover {
+        background-color: rgba(255, 68, 79, 0.1);
+        border-color: var(--brand-red);
         transform: translateY(-1px);
     }
     .deposit-illustration { width: 90px; flex-shrink: 0; }
@@ -174,7 +192,7 @@
 <div class="app">
 
     <header class="top-bar">
-        <a href="setting.html" class="avatar" id="avatar">KB</a>
+        <a href="settings.html" class="avatar" id="avatar">KB</a>
         <button class="ask-amy"><span class="sparkle">✦</span> Ask Amy</button>
         <div class="top-actions">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -199,7 +217,10 @@
                 <div class="progress-track">
                     <div class="progress-fill" id="progressFill" style="width: 18%;"></div>
                 </div>
-                <a href="deposit.html" class="btn-deposit" id="depositBtn">Deposit now</a>
+                <div class="banner-buttons">
+                    <a href="deposit.html" class="btn-deposit" id="depositBtn">Deposit now</a>
+                    <a href="withdraw.html" class="btn-withdraw" id="withdrawBtn" style="display: none;">Withdraw</a>
+                </div>
             </div>
 
             <div class="deposit-illustration">
@@ -331,20 +352,19 @@
 
     const balance = getBalance();
 
-    // Show the same balance on both account cards
     document.querySelectorAll('.balance-value').forEach(el => {
         el.textContent = formatBalance(balance);
     });
 
-    // Update the deposit banner based on whether the user has deposited
-    const bannerTitle = document.getElementById('bannerTitle');
-    const depositBtn  = document.getElementById('depositBtn');
-    const progressFill = document.getElementById('progressFill');
+    const bannerTitle   = document.getElementById('bannerTitle');
+    const depositBtn    = document.getElementById('depositBtn');
+    const withdrawBtn   = document.getElementById('withdrawBtn');
+    const progressFill  = document.getElementById('progressFill');
 
     if (balance > 0) {
         bannerTitle.textContent = 'Total deposited';
         depositBtn.textContent = 'Deposit more';
-        // Progress fills up to a "goal" of $1000
+        withdrawBtn.style.display = 'inline-flex';
         const pct = Math.min(100, (balance / 1000) * 100);
         progressFill.style.width = pct + '%';
     } else {
