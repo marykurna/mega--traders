@@ -1,77 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>href="#dashboard.html"
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mega Traders — Trade Smarter, Move Faster</title>
 <meta name="description" content="Mega Traders gives you institutional-grade tools, real-time market data and lightning-fast execution — all in one platform.">
+<link rel="stylesheet" href="styles.css">
 <style>
-    /* ============================================================
-       DESIGN TOKENS
-       Single source of truth for colors, radii, shadows, spacing.
-       ============================================================ */
-    :root {
-        /* Surfaces */
-        --bg-color:     #0a0e12;
-        --card-bg:      #12171e;
-        --border-color: #1f2937;
-
-        /* Text */
-        --text-main:  #f3f4f6;
-        --text-muted: #9ca3af;
-
-        /* Accents */
-        --accent-orange: #f97316;
-        --accent-green:  #4ade80;
-        --accent-red:    #f87171;
-
-        /* Buttons */
-        --btn-dark:       #374151;
-        --btn-dark-hover: #4b5563;
-
-        /* Shape & depth */
-        --radius-sm: 10px;
-        --radius:    14px;
-        --radius-lg: 20px;
-        --shadow-lg: 0 24px 60px -24px rgba(0, 0, 0, 0.9);
-
-        /* Layout */
-        --container: 1180px;
-    }
-
-    /* ============================================================
-       RESET
-       ============================================================ */
-    *,
-    *::before,
-    *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                     Helvetica, Arial, sans-serif;
-    }
-
-    html {
-        scroll-behavior: smooth;
-        scroll-padding-top: 90px; /* offset for sticky header */
-    }
-
-    body {
-        background-color: var(--bg-color);
-        color: var(--text-main);
-        line-height: 1.65;
-        font-size: 16px;
-        -webkit-font-smoothing: antialiased;
-        overflow-x: hidden;
-    }
-
-    img, svg { display: block; max-width: 100%; }
-    ul       { list-style: none; }
-    a        { color: inherit; text-decoration: none; }
-    button   { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
-
-    /* Ambient background glow — fixed so it never scrolls */
+    /* Ambient background glow */
     body::before {
         content: "";
         position: fixed;
@@ -83,106 +19,9 @@
             radial-gradient(700px 500px at 90% 8%,  rgba(74, 222, 128, 0.08), transparent 60%);
     }
 
-    /* ============================================================
-       LAYOUT HELPERS
-       ============================================================ */
-    .container {
-        width: min(var(--container), 100% - 2.5rem);
-        margin-inline: auto;
-        position: relative;
-        z-index: 1;
-    }
-
     .section { padding: 96px 0; }
 
-    .section-head {
-        max-width: 660px;
-        margin: 0 auto 56px;
-        text-align: center;
-    }
-
-    .section-head h2 {
-        font-size: clamp(1.75rem, 3.6vw, 2.5rem);
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        margin-bottom: 14px;
-    }
-
-    .section-head p { color: var(--text-muted); }
-
-    .eyebrow {
-        display: inline-block;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent-orange);
-        margin-bottom: 14px;
-    }
-
-    .gradient-text {
-        background: linear-gradient(100deg, var(--accent-orange), #fbbf24 55%, var(--accent-green));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-
-    /* ============================================================
-       BUTTONS
-       ============================================================ */
-    .btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        padding: 0.8rem 1.5rem;
-        border-radius: var(--radius-sm);
-        font-size: 0.94rem;
-        font-weight: 600;
-        white-space: nowrap;
-        border: 1px solid transparent;
-        transition: transform 0.2s ease, background-color 0.2s ease,
-                    border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-    }
-
-    .btn:active { transform: translateY(0) scale(0.99); }
-
-    .btn-primary {
-        background: linear-gradient(135deg, var(--accent-orange), #ea580c);
-        color: #0a0e12;
-        box-shadow: 0 10px 30px -12px rgba(249, 115, 22, 0.9);
-    }
-    .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 16px 36px -12px rgba(249, 115, 22, 0.95);
-    }
-
-    .btn-ghost {
-        background-color: var(--btn-dark);
-        border-color: var(--border-color);
-        color: var(--text-main);
-    }
-    .btn-ghost:hover {
-        background-color: var(--btn-dark-hover);
-        transform: translateY(-2px);
-    }
-
-    .btn-outline {
-        border-color: var(--border-color);
-        color: var(--text-main);
-        background-color: transparent;
-    }
-    .btn-outline:hover {
-        border-color: var(--accent-orange);
-        color: var(--accent-orange);
-    }
-
-    .btn-lg    { padding: 1rem 1.9rem; font-size: 1rem; }
-    .btn-block { width: 100%; }
-
-    /* ============================================================
-       HEADER / NAV
-       ============================================================ */
+    /* ---- Header / Nav ---- */
     .site-header {
         position: sticky;
         top: 0;
@@ -193,12 +32,10 @@
         border-bottom: 1px solid transparent;
         transition: border-color 0.25s ease, background-color 0.25s ease;
     }
-
     .site-header.is-scrolled {
         border-bottom-color: var(--border-color);
         background-color: rgba(10, 14, 18, 0.92);
     }
-
     .nav {
         display: flex;
         align-items: center;
@@ -206,35 +43,11 @@
         gap: 1.5rem;
         height: 72px;
     }
-
-    .logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.6rem;
-        font-weight: 800;
-        font-size: 1.08rem;
-        letter-spacing: -0.02em;
-    }
-
-    .logo-mark {
-        width: 32px;
-        height: 32px;
-        border-radius: 9px;
-        display: grid;
-        place-items: center;
-        background: linear-gradient(135deg, var(--accent-orange), #ea580c);
-        color: #0a0e12;
-        font-size: 1rem;
-        font-weight: 900;
-        box-shadow: 0 8px 20px -10px rgba(249, 115, 22, 0.9);
-    }
-
     .nav-links {
         display: flex;
         align-items: center;
         gap: 2rem;
     }
-
     .nav-links a {
         font-size: 0.9rem;
         font-weight: 500;
@@ -242,13 +55,11 @@
         transition: color 0.2s ease;
     }
     .nav-links a:hover { color: var(--text-main); }
-
     .nav-actions {
         display: flex;
         align-items: center;
         gap: 0.75rem;
     }
-
     .nav-actions .signin {
         font-size: 0.9rem;
         font-weight: 600;
@@ -257,8 +68,6 @@
         transition: color 0.2s ease;
     }
     .nav-actions .signin:hover { color: var(--text-main); }
-
-    /* Hamburger (mobile only) */
     .nav-toggle {
         display: none;
         width: 42px;
@@ -290,50 +99,18 @@
     }
     .nav-toggle span::before { top: -6px; }
     .nav-toggle span::after  { top:  6px; }
-
     .nav-toggle[aria-expanded="true"] span         { background-color: transparent; }
     .nav-toggle[aria-expanded="true"] span::before { top: 0; transform: rotate(45deg); }
     .nav-toggle[aria-expanded="true"] span::after  { top: 0; transform: rotate(-45deg); }
 
-    /* ============================================================
-       HERO
-       ============================================================ */
-    .hero {
-        padding: 84px 0 72px;
-        position: relative;
-    }
-
+    /* ---- Hero ---- */
+    .hero { padding: 84px 0 72px; position: relative; }
     .hero-grid {
         display: grid;
         grid-template-columns: 1.05fr 0.95fr;
         gap: 64px;
         align-items: center;
     }
-
-    .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.55rem;
-        padding: 0.4rem 0.9rem 0.4rem 0.55rem;
-        border: 1px solid var(--border-color);
-        background-color: rgba(18, 23, 30, 0.8);
-        border-radius: 999px;
-        font-size: 0.78rem;
-        font-weight: 600;
-        color: var(--text-muted);
-        margin-bottom: 22px;
-    }
-
-    .badge .pill {
-        background-color: rgba(74, 222, 128, 0.14);
-        color: var(--accent-green);
-        padding: 0.15rem 0.55rem;
-        border-radius: 999px;
-        font-size: 0.7rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-    }
-
     .hero h1 {
         font-size: clamp(2.2rem, 5vw, 3.6rem);
         line-height: 1.08;
@@ -341,21 +118,18 @@
         font-weight: 800;
         margin-bottom: 20px;
     }
-
     .hero p.lead {
         font-size: 1.06rem;
         color: var(--text-muted);
         max-width: 520px;
         margin-bottom: 32px;
     }
-
     .hero-cta {
         display: flex;
         flex-wrap: wrap;
         gap: 0.85rem;
         margin-bottom: 14px;
     }
-
     .hero-note {
         font-size: 0.8rem;
         color: var(--text-muted);
@@ -363,7 +137,6 @@
         align-items: center;
         gap: 0.45rem;
     }
-
     .hero-stats {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -372,7 +145,6 @@
         padding-top: 30px;
         border-top: 1px solid var(--border-color);
     }
-
     .stat-value {
         font-size: 1.6rem;
         font-weight: 800;
@@ -380,7 +152,6 @@
     }
     .stat-value.green  { color: var(--accent-green); }
     .stat-value.orange { color: var(--accent-orange); }
-
     .stat-label {
         font-size: 0.78rem;
         color: var(--text-muted);
@@ -389,9 +160,7 @@
         margin-top: 2px;
     }
 
-    /* ============================================================
-       TRADING PANEL (hero card)
-       ============================================================ */
+    /* ---- Trading Panel ---- */
     .panel {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -401,7 +170,6 @@
         position: relative;
         overflow: hidden;
     }
-
     .panel::after {
         content: "";
         position: absolute;
@@ -410,7 +178,6 @@
         pointer-events: none;
         background: linear-gradient(180deg, rgba(249, 115, 22, 0.06), transparent 40%);
     }
-
     .panel-head {
         display: flex;
         align-items: center;
@@ -420,7 +187,6 @@
         position: relative;
         z-index: 1;
     }
-
     .panel-title {
         display: flex;
         align-items: center;
@@ -431,7 +197,6 @@
         text-transform: uppercase;
         color: var(--text-muted);
     }
-
     .live-dot {
         width: 8px;
         height: 8px;
@@ -440,13 +205,11 @@
         box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
         animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
         0%   { box-shadow: 0 0 0 0   rgba(74, 222, 128, 0.55); }
         70%  { box-shadow: 0 0 0 9px rgba(74, 222, 128, 0);    }
         100% { box-shadow: 0 0 0 0   rgba(74, 222, 128, 0);    }
     }
-
     .panel-tabs {
         display: flex;
         gap: 0.25rem;
@@ -466,7 +229,6 @@
         background-color: var(--btn-dark);
         color: var(--text-main);
     }
-
     .panel-value {
         font-size: 2rem;
         font-weight: 800;
@@ -478,7 +240,6 @@
         position: relative;
         z-index: 1;
     }
-
     .delta {
         font-size: 0.85rem;
         font-weight: 700;
@@ -487,7 +248,6 @@
     }
     .delta.up   { color: var(--accent-green); background-color: rgba(74, 222, 128, 0.12); }
     .delta.down { color: var(--accent-red);   background-color: rgba(248, 113, 113, 0.12); }
-
     .chart {
         width: 100%;
         height: auto;
@@ -495,8 +255,6 @@
         position: relative;
         z-index: 1;
     }
-
-    /* Watchlist */
     .watchlist {
         display: grid;
         gap: 2px;
@@ -515,7 +273,6 @@
         transition: background-color 0.2s ease;
     }
     .watchlist li:hover { background-color: rgba(55, 65, 81, 0.35); }
-
     .ticker-name {
         display: flex;
         align-items: center;
@@ -540,9 +297,7 @@
     .ticker-chg.up   { color: var(--accent-green); }
     .ticker-chg.down { color: var(--accent-red); }
 
-    /* ============================================================
-       TICKER STRIP (marquee)
-       ============================================================ */
+    /* ---- Ticker Strip ---- */
     .ticker-strip {
         border-block: 1px solid var(--border-color);
         background-color: #0c1015;
@@ -551,7 +306,6 @@
         position: relative;
         z-index: 1;
     }
-
     .ticker-track {
         display: flex;
         align-items: center;
@@ -559,14 +313,11 @@
         width: max-content;
         animation: marquee 42s linear infinite;
     }
-
     .ticker-strip:hover .ticker-track { animation-play-state: paused; }
-
     @keyframes marquee {
         from { transform: translateX(0);    }
         to   { transform: translateX(-50%); }
     }
-
     .ticker-item {
         display: flex;
         align-items: center;
@@ -580,37 +331,12 @@
     .ticker-item .up   { color: var(--accent-green); }
     .ticker-item .down { color: var(--accent-red);   }
 
-    /* ============================================================
-       FEATURE CARDS
-       ============================================================ */
+    /* ---- Feature Grid ---- */
     .feature-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
     }
-
-    .card {
-        background-color: var(--card-bg);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 26px;
-        transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-        position: relative;
-        overflow: hidden;
-    }
-    .card:hover {
-        transform: translateY(-5px);
-        border-color: rgba(249, 115, 22, 0.42);
-        box-shadow: 0 22px 44px -26px rgba(249, 115, 22, 0.55);
-    }
-    .card h3 {
-        font-size: 1.06rem;
-        font-weight: 700;
-        letter-spacing: -0.01em;
-        margin-bottom: 8px;
-    }
-    .card p { font-size: 0.9rem; color: var(--text-muted); }
-
     .card-icon {
         width: 44px;
         height: 44px;
@@ -628,9 +354,7 @@
         color: var(--accent-green);
     }
 
-    /* ============================================================
-       MARKETS TABLE
-       ============================================================ */
+    /* ---- Markets Table ---- */
     .table-wrap {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -638,13 +362,7 @@
         overflow: hidden;
     }
     .table-scroll { overflow-x: auto; }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        min-width: 640px;
-    }
-
+    table { width: 100%; border-collapse: collapse; min-width: 640px; }
     thead th {
         text-align: left;
         font-size: 0.72rem;
@@ -656,7 +374,6 @@
         background-color: #0d1117;
         border-bottom: 1px solid var(--border-color);
     }
-
     tbody td {
         padding: 16px 22px;
         font-size: 0.9rem;
@@ -666,7 +383,6 @@
     tbody tr:last-child td { border-bottom: none; }
     tbody tr              { transition: background-color 0.2s ease; }
     tbody tr:hover        { background-color: rgba(55, 65, 81, 0.22); }
-
     .asset {
         display: flex;
         align-items: center;
@@ -679,19 +395,15 @@
         font-weight: 500;
         color: var(--text-muted);
     }
-
     .spark { width: 92px; height: 28px; }
 
-    /* ============================================================
-       PRICING
-       ============================================================ */
+    /* ---- Pricing ---- */
     .pricing-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 22px;
         align-items: stretch;
     }
-
     .price-card {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -705,14 +417,12 @@
         transform: translateY(-5px);
         border-color: var(--btn-dark-hover);
     }
-
     .price-card.featured {
         border-color: rgba(249, 115, 22, 0.55);
         background: linear-gradient(180deg, rgba(249, 115, 22, 0.07), var(--card-bg) 42%);
         box-shadow: 0 26px 60px -30px rgba(249, 115, 22, 0.75);
         position: relative;
     }
-
     .price-tag {
         position: absolute;
         top: -13px;
@@ -728,7 +438,6 @@
         border-radius: 999px;
         white-space: nowrap;
     }
-
     .plan-name {
         font-size: 0.8rem;
         font-weight: 700;
@@ -737,7 +446,6 @@
         color: var(--text-muted);
         margin-bottom: 12px;
     }
-
     .plan-price {
         display: flex;
         align-items: baseline;
@@ -753,13 +461,11 @@
         font-size: 0.85rem;
         color: var(--text-muted);
     }
-
     .plan-desc {
         font-size: 0.88rem;
         color: var(--text-muted);
         margin-bottom: 22px;
     }
-
     .plan-features {
         display: grid;
         gap: 11px;
@@ -776,24 +482,12 @@
         color: var(--text-main);
     }
 
-    .check {
-        flex: none;
-        width: 17px;
-        height: 17px;
-        margin-top: 4px;
-        color: var(--accent-green);
-    }
-    .check.dim { color: var(--text-muted); opacity: 0.5; }
-
-    /* ============================================================
-       TESTIMONIALS
-       ============================================================ */
+    /* ---- Testimonials ---- */
     .quote-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
     }
-
     .quote-card {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -803,19 +497,16 @@
         flex-direction: column;
         gap: 18px;
     }
-
     .stars {
         display: flex;
         gap: 3px;
         color: var(--accent-orange);
     }
-
     .quote-card blockquote {
         font-size: 0.93rem;
         color: #d1d5db;
         flex: 1;
     }
-
     .quote-author {
         display: flex;
         align-items: center;
@@ -823,7 +514,6 @@
         padding-top: 16px;
         border-top: 1px solid var(--border-color);
     }
-
     .avatar {
         width: 38px;
         height: 38px;
@@ -836,20 +526,16 @@
         background: linear-gradient(135deg, var(--accent-orange), #fbbf24);
     }
     .avatar.green { background: linear-gradient(135deg, var(--accent-green), #22d3ee); }
-
     .author-name { font-size: 0.88rem; font-weight: 700; }
     .author-role { font-size: 0.76rem; color: var(--text-muted); }
 
-    /* ============================================================
-       FAQ (native <details>)
-       ============================================================ */
+    /* ---- FAQ ---- */
     .faq-list {
         max-width: 800px;
         margin-inline: auto;
         display: grid;
         gap: 12px;
     }
-
     details {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -858,7 +544,6 @@
         transition: border-color 0.2s ease;
     }
     details[open] { border-color: rgba(249, 115, 22, 0.4); }
-
     summary {
         list-style: none;
         cursor: pointer;
@@ -873,7 +558,6 @@
     }
     summary::-webkit-details-marker { display: none; }
     summary:hover { color: var(--accent-orange); }
-
     summary::after {
         content: "+";
         flex: none;
@@ -884,16 +568,13 @@
         transition: transform 0.25s ease;
     }
     details[open] summary::after { transform: rotate(45deg); }
-
     details p {
         padding: 0 22px 20px;
         font-size: 0.9rem;
         color: var(--text-muted);
     }
 
-    /* ============================================================
-       CTA BAND
-       ============================================================ */
+    /* ---- CTA ---- */
     .cta-band {
         border: 1px solid var(--border-color);
         border-radius: 22px;
@@ -905,7 +586,6 @@
         position: relative;
         overflow: hidden;
     }
-
     .cta-band h2 {
         font-size: clamp(1.6rem, 3.4vw, 2.3rem);
         letter-spacing: -0.03em;
@@ -916,7 +596,6 @@
         max-width: 520px;
         margin: 0 auto 30px;
     }
-
     .cta-actions {
         display: flex;
         justify-content: center;
@@ -924,9 +603,7 @@
         gap: 0.85rem;
     }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
+    /* ---- Footer ---- */
     .site-footer {
         border-top: 1px solid var(--border-color);
         padding: 60px 0 32px;
@@ -934,21 +611,18 @@
         position: relative;
         z-index: 1;
     }
-
     .footer-grid {
         display: grid;
         grid-template-columns: 1.6fr repeat(3, 1fr);
         gap: 40px;
         margin-bottom: 44px;
     }
-
     .footer-brand p {
         font-size: 0.88rem;
         color: var(--text-muted);
         max-width: 300px;
         margin-top: 14px;
     }
-
     .footer-col h4 {
         font-size: 0.78rem;
         font-weight: 700;
@@ -964,7 +638,6 @@
         transition: color 0.2s ease;
     }
     .footer-col a:hover { color: var(--accent-orange); }
-
     .footer-bottom {
         border-top: 1px solid var(--border-color);
         padding-top: 26px;
@@ -975,7 +648,6 @@
         justify-content: space-between;
     }
     .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
-
     .disclaimer {
         font-size: 0.74rem;
         color: #6b7280;
@@ -984,17 +656,11 @@
         line-height: 1.6;
     }
 
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
+    /* ---- Responsive ---- */
     @media (max-width: 960px) {
-        .hero-grid {
-            grid-template-columns: 1fr;
-            gap: 48px;
-        }
+        .hero-grid { grid-template-columns: 1fr; gap: 48px; }
         .hero      { padding: 56px 0 60px; }
         .hero p.lead { max-width: none; }
-
         .nav-links {
             position: absolute;
             top: 72px;
@@ -1015,10 +681,8 @@
             font-size: 0.95rem;
         }
         .nav-links a:last-child { border-bottom: none; }
-
         .nav-toggle { display: grid; }
         .nav-actions .signin { display: none; }
-
         .footer-grid  { grid-template-columns: 1fr 1fr; gap: 32px; }
         .footer-brand { grid-column: 1 / -1; }
     }
@@ -1027,32 +691,17 @@
         .section    { padding: 68px 0; }
         .hero-stats { grid-template-columns: 1fr; gap: 1rem; }
         .stat-value { font-size: 1.4rem; }
-
         .panel       { padding: 18px; }
         .panel-value { font-size: 1.6rem; }
-
         .cta-band    { padding: 40px 22px; }
         .footer-grid { grid-template-columns: 1fr; }
-
         .hero-cta .btn,
         .cta-actions .btn { width: 100%; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        *,
-        *::before,
-        *::after {
-            animation-duration: 0.001ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.001ms !important;
-            scroll-behavior: auto !important;
-        }
     }
 </style>
 </head>
 <body>
 
-<!-- ===== Header ===== -->
 <header class="site-header" id="header">
     <div class="container">
         <nav class="nav" aria-label="Main">
@@ -1082,11 +731,9 @@
 
 <main id="top">
 
-    <!-- ===== Hero ===== -->
     <section class="hero">
         <div class="container">
             <div class="hero-grid">
-
                 <div class="hero-copy">
                     <div class="badge">
                         <span class="pill">New</span>
@@ -1132,7 +779,6 @@
                     </div>
                 </div>
 
-                <!-- Trading panel mock -->
                 <div class="panel" aria-hidden="true">
                     <div class="panel-head">
                         <div class="panel-title">
@@ -1189,15 +835,12 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== Ticker strip ===== -->
     <div class="ticker-strip" aria-hidden="true">
         <div class="ticker-track" id="tickerTrack">
-            <!-- set A -->
             <div class="ticker-item"><b>BTC/USD</b> 67,842.10 <span class="up">+2.41%</span></div>
             <div class="ticker-item"><b>ETH/USD</b> 3,412.55 <span class="up">+1.08%</span></div>
             <div class="ticker-item"><b>SOL/USD</b> 172.88 <span class="down">-1.34%</span></div>
@@ -1206,7 +849,6 @@
             <div class="ticker-item"><b>EUR/USD</b> 1.0872 <span class="up">+0.14%</span></div>
             <div class="ticker-item"><b>XAU/USD</b> 2,384.60 <span class="up">+0.52%</span></div>
             <div class="ticker-item"><b>SPX500</b> 5,487.03 <span class="down">-0.21%</span></div>
-            <!-- set B (duplicate for seamless loop) -->
             <div class="ticker-item"><b>BTC/USD</b> 67,842.10 <span class="up">+2.41%</span></div>
             <div class="ticker-item"><b>ETH/USD</b> 3,412.55 <span class="up">+1.08%</span></div>
             <div class="ticker-item"><b>SOL/USD</b> 172.88 <span class="down">-1.34%</span></div>
@@ -1218,7 +860,6 @@
         </div>
     </div>
 
-    <!-- ===== Features ===== -->
     <section class="section" id="features">
         <div class="container">
             <div class="section-head">
@@ -1228,13 +869,9 @@
             </div>
 
             <div class="feature-grid">
-
                 <article class="card">
                     <div class="card-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="m13 2-3 7h6l-3 13"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-3 7h6l-3 13"/></svg>
                     </div>
                     <h3>Sub-10ms execution</h3>
                     <p>Our matching engine sits in Tier-4 data centres across three continents, so your orders land before the market moves.</p>
@@ -1242,11 +879,7 @@
 
                 <article class="card">
                     <div class="card-icon green">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M3 3v18h18"/>
-                            <path d="m7 15 4-5 3 3 5-7"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 15 4-5 3 3 5-7"/></svg>
                     </div>
                     <h3>150+ indicators</h3>
                     <p>Layer technicals, fundamentals and custom Pine-style scripts on any chart — no plugin downloads required.</p>
@@ -1254,11 +887,7 @@
 
                 <article class="card">
                     <div class="card-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
-                            <path d="m9 12 2 2 4-4"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
                     </div>
                     <h3>Regulated &amp; insured</h3>
                     <p>Client funds are held in segregated accounts with tier-1 banks and protected by investor compensation schemes.</p>
@@ -1266,11 +895,7 @@
 
                 <article class="card">
                     <div class="card-icon green">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="2" y="4" width="20" height="16" rx="3"/>
-                            <path d="M2 10h20"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 10h20"/></svg>
                     </div>
                     <h3>Zero hidden fees</h3>
                     <p>One transparent spread, no custody charges, no inactivity fees and free withdrawals above $50.</p>
@@ -1278,11 +903,7 @@
 
                 <article class="card">
                     <div class="card-icon">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <circle cx="12" cy="12" r="9"/>
-                            <path d="M12 7v5l3 2"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
                     </div>
                     <h3>24/7 human support</h3>
                     <p>Live chat with actual traders in under 60 seconds, every hour of every day — including weekends.</p>
@@ -1290,20 +911,15 @@
 
                 <article class="card">
                     <div class="card-icon green">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <path d="M4 17V9M10 17V5M16 17v-6M22 17H2"/>
-                        </svg>
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V9M10 17V5M16 17v-6M22 17H2"/></svg>
                     </div>
                     <h3>Automated strategies</h3>
                     <p>Deploy bots with a visual builder or connect your own API keys. Backtest on 20 years of tick data.</p>
                 </article>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== Markets ===== -->
     <section class="section" id="markets">
         <div class="container">
             <div class="section-head">
@@ -1331,65 +947,40 @@
                                 <td>67,842.10</td>
                                 <td class="ticker-chg up" style="text-align:left">+2.41%</td>
                                 <td>0.02%</td>
-                                <td>
-                                    <svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true">
-                                        <path d="M1 22 L13 18 L25 20 L37 12 L49 15 L61 8 L73 10 L91 3"
-                                              stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </td>
-                                <td><a class="btn btn-outline" href="#pricing">Trade</a></td>
+                                <td><svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true"><path d="M1 22 L13 18 L25 20 L37 12 L49 15 L61 8 L73 10 L91 3" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                                <td><a class="btn btn-outline" href="login.html">Trade</a></td>
                             </tr>
                             <tr>
                                 <td><div class="asset">ETH/USD <span class="sub">Ethereum</span></div></td>
                                 <td>3,412.55</td>
                                 <td class="ticker-chg up" style="text-align:left">+1.08%</td>
                                 <td>0.03%</td>
-                                <td>
-                                    <svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true">
-                                        <path d="M1 20 L13 22 L25 14 L37 17 L49 10 L61 13 L73 6 L91 8"
-                                              stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </td>
-                                <td><a class="btn btn-outline" href="#pricing">Trade</a></td>
+                                <td><svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true"><path d="M1 20 L13 22 L25 14 L37 17 L49 10 L61 13 L73 6 L91 8" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                                <td><a class="btn btn-outline" href="login.html">Trade</a></td>
                             </tr>
                             <tr>
                                 <td><div class="asset">NVDA <span class="sub">NVIDIA Corp.</span></div></td>
                                 <td>128.44</td>
                                 <td class="ticker-chg down" style="text-align:left">-0.62%</td>
                                 <td>0.01%</td>
-                                <td>
-                                    <svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true">
-                                        <path d="M1 6 L13 10 L25 7 L37 14 L49 12 L61 19 L73 17 L91 23"
-                                              stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </td>
-                                <td><a class="btn btn-outline" href="#pricing">Trade</a></td>
+                                <td><svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true"><path d="M1 6 L13 10 L25 7 L37 14 L49 12 L61 19 L73 17 L91 23" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                                <td><a class="btn btn-outline" href="login.html">Trade</a></td>
                             </tr>
                             <tr>
                                 <td><div class="asset">EUR/USD <span class="sub">Euro / US Dollar</span></div></td>
                                 <td>1.0872</td>
                                 <td class="ticker-chg up" style="text-align:left">+0.14%</td>
                                 <td>0.1 pip</td>
-                                <td>
-                                    <svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true">
-                                        <path d="M1 16 L13 13 L25 15 L37 11 L49 13 L61 9 L73 11 L91 7"
-                                              stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </td>
-                                <td><a class="btn btn-outline" href="#pricing">Trade</a></td>
+                                <td><svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true"><path d="M1 16 L13 13 L25 15 L37 11 L49 13 L61 9 L73 11 L91 7" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                                <td><a class="btn btn-outline" href="login.html">Trade</a></td>
                             </tr>
                             <tr>
                                 <td><div class="asset">XAU/USD <span class="sub">Gold Spot</span></div></td>
                                 <td>2,384.60</td>
                                 <td class="ticker-chg up" style="text-align:left">+0.52%</td>
                                 <td>0.3 pip</td>
-                                <td>
-                                    <svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true">
-                                        <path d="M1 21 L13 17 L25 18 L37 13 L49 15 L61 10 L73 12 L91 6"
-                                              stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </td>
-                                <td><a class="btn btn-outline" href="#pricing">Trade</a></td>
+                                <td><svg class="spark" viewBox="0 0 92 28" fill="none" aria-hidden="true"><path d="M1 21 L13 17 L25 18 L37 13 L49 15 L61 10 L73 12 L91 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></td>
+                                <td><a class="btn btn-outline" href="login.html">Trade</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1398,7 +989,6 @@
         </div>
     </section>
 
-    <!-- ===== Pricing ===== -->
     <section class="section" id="pricing">
         <div class="container">
             <div class="section-head">
@@ -1408,8 +998,6 @@
             </div>
 
             <div class="pricing-grid">
-
-                <!-- Starter -->
                 <article class="price-card">
                     <div class="plan-name">Starter</div>
                     <div class="plan-price">
@@ -1426,10 +1014,9 @@
                         <li><svg class="check dim" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority support</li>
                     </ul>
 
-                    <a class="btn btn-ghost btn-block" href="#">Create free account</a>
+                    <a class="btn btn-ghost btn-block" href="login.html">Create free account</a>
                 </article>
 
-                <!-- Pro -->
                 <article class="price-card featured">
                     <span class="price-tag">Most popular</span>
                     <div class="plan-name">Pro</div>
@@ -1447,10 +1034,9 @@
                         <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Priority 24/7 support</li>
                     </ul>
 
-                    <a class="btn btn-primary btn-block" href="#">Start 14-day trial</a>
+                    <a class="btn btn-primary btn-block" href="login.html">Start 14-day trial</a>
                 </article>
 
-                <!-- Institution -->
                 <article class="price-card">
                     <div class="plan-name">Institution</div>
                     <div class="plan-price">
@@ -1467,14 +1053,12 @@
                         <li><svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Custom reporting &amp; SLAs</li>
                     </ul>
 
-                    <a class="btn btn-ghost btn-block" href="#">Talk to sales</a>
+                    <a class="btn btn-ghost btn-block" href="login.html">Talk to sales</a>
                 </article>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== Testimonials ===== -->
     <section class="section" id="testimonials">
         <div class="container">
             <div class="section-head">
@@ -1484,7 +1068,6 @@
             </div>
 
             <div class="quote-grid">
-
                 <article class="quote-card">
                     <div class="stars" aria-label="5 out of 5 stars">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
@@ -1493,10 +1076,7 @@
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                     </div>
-                    <blockquote>
-                        "I moved my whole book over after a week on the demo. The execution speed is genuinely
-                        on another level — my scalping strategy finally behaves the way the backtest said it would."
-                    </blockquote>
+                    <blockquote>"I moved my whole book over after a week on the demo. The execution speed is genuinely on another level — my scalping strategy finally behaves the way the backtest said it would."</blockquote>
                     <div class="quote-author">
                         <div class="avatar">DR</div>
                         <div>
@@ -1514,10 +1094,7 @@
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                     </div>
-                    <blockquote>
-                        "The API is clean and the docs actually make sense. I had my bots live in an afternoon
-                        and haven't had a single dropped connection in eight months."
-                    </blockquote>
+                    <blockquote>"The API is clean and the docs actually make sense. I had my bots live in an afternoon and haven't had a single dropped connection in eight months."</blockquote>
                     <div class="quote-author">
                         <div class="avatar green">AK</div>
                         <div>
@@ -1535,10 +1112,7 @@
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3 6.6 7 .9-5.2 4.9 1.4 7L12 18l-6.2 3.4 1.4-7L2 9.5l7-.9Z"/></svg>
                     </div>
-                    <blockquote>
-                        "I'm not a full-time trader, so I needed something that didn't feel like a cockpit.
-                        Mega Traders is powerful when I need it and quiet when I don't."
-                    </blockquote>
+                    <blockquote>"I'm not a full-time trader, so I needed something that didn't feel like a cockpit. Mega Traders is powerful when I need it and quiet when I don't."</blockquote>
                     <div class="quote-author">
                         <div class="avatar">JM</div>
                         <div>
@@ -1547,12 +1121,10 @@
                         </div>
                     </div>
                 </article>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== FAQ ===== -->
     <section class="section" id="faq">
         <div class="container">
             <div class="section-head">
@@ -1562,49 +1134,41 @@
             </div>
 
             <div class="faq-list">
-
                 <details open>
                     <summary>Do I need to deposit money to get started?</summary>
                     <p>No. Every account comes with a fully funded demo environment using live market data. You can explore the platform, build strategies and backtest them before committing a single dollar.</p>
                 </details>
-
                 <details>
                     <summary>What markets can I trade?</summary>
                     <p>Crypto pairs, US and EU equities, forex, indices and commodities — all from one margin balance. Over 4,000 instruments are available on the Pro plan and above.</p>
                 </details>
-
                 <details>
                     <summary>How are my funds protected?</summary>
                     <p>Client funds are held in segregated accounts with tier-1 banks, separate from company capital. Eligible accounts are covered by the investor compensation scheme up to $50,000.</p>
                 </details>
-
                 <details>
                     <summary>What are the actual fees?</summary>
                     <p>There are no custody fees, no inactivity fees and no deposit fees. You pay the spread, plus a small commission on equities. Withdrawals above $50 are free.</p>
                 </details>
-
                 <details>
                     <summary>Can I cancel my subscription anytime?</summary>
                     <p>Yes. Plans are billed monthly and you can cancel from your dashboard in two clicks. You keep access until the end of the current billing period — no lock-in, no exit fees.</p>
                 </details>
-
                 <details>
                     <summary>Do you offer an API?</summary>
                     <p>REST and FIX APIs are available on Pro and Institution plans, with WebSocket streaming for real-time market data. Full documentation is public and includes SDKs for Python, Node and Go.</p>
                 </details>
-
             </div>
         </div>
     </section>
 
-    <!-- ===== CTA ===== -->
     <section class="section" style="padding-top:0;">
         <div class="container">
             <div class="cta-band">
                 <h2>Your edge is one click away</h2>
                 <p>Join 640,000 traders using Mega Traders. Open a free account in under two minutes — no card required.</p>
                 <div class="cta-actions">
-                    <a class="btn btn-primary btn-lg" href="#">Create free account</a>
+                    <a class="btn btn-primary btn-lg" href="login.html">Create free account</a>
                     <a class="btn btn-ghost btn-lg" href="#markets">See live markets</a>
                 </div>
             </div>
@@ -1613,11 +1177,9 @@
 
 </main>
 
-<!-- ===== Footer ===== -->
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
-
             <div class="footer-brand">
                 <a class="logo" href="#top">
                     <span class="logo-mark">M</span>
@@ -1625,7 +1187,6 @@
                 </a>
                 <p>Institutional-grade trading tools for everyone. Built for speed, priced for people.</p>
             </div>
-
             <div class="footer-col">
                 <h4>Platform</h4>
                 <ul>
@@ -1635,7 +1196,6 @@
                     <li><a href="#">API docs</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Company</h4>
                 <ul>
@@ -1645,7 +1205,6 @@
                     <li><a href="#">Contact</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h4>Legal</h4>
                 <ul>
@@ -1655,7 +1214,6 @@
                     <li><a href="#">Cookie settings</a></li>
                 </ul>
             </div>
-
         </div>
 
         <div class="footer-bottom">
@@ -1673,7 +1231,6 @@
 </footer>
 
 <script>
-    /* ---- Mobile navigation ---- */
     const navToggle = document.getElementById('navToggle');
     const navLinks  = document.getElementById('navLinks');
 
@@ -1689,38 +1246,29 @@
         });
     });
 
-    /* ---- Header shadow on scroll ---- */
     const header = document.getElementById('header');
     const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    /* ---- Current year ---- */
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    /* ---- Subtle live-ish price ticks in the hero watchlist ---- */
     const watchRows = document.querySelectorAll('.watchlist li');
 
     setInterval(() => {
         if (document.hidden) return;
-
         watchRows.forEach(row => {
             const priceEl = row.querySelector('.ticker-price');
             const chgEl   = row.querySelector('.ticker-chg');
             if (!priceEl || !chgEl) return;
-
-            const raw = parseFloat(priceEl.textContent.replace(/,/g, ''));
+            const raw = parseFloat(priceEl.textContent.replace(/[$,]/g, ''));
             if (isNaN(raw)) return;
-
-            // Random walk of ±0.15%
             const next = Math.max(0.0001, raw * (1 + (Math.random() - 0.5) * 0.003));
             const decimals = raw < 10 ? 4 : 2;
-            priceEl.textContent = '$' + next.toLocaleString('en-US', {
+            priceEl.textContent = (raw >= 10 ? '$' : '') + next.toLocaleString('en-US', {
                 minimumFractionDigits: decimals,
                 maximumFractionDigits: decimals
             });
-
-            // Nudge the change badge in the same direction
             const chg = parseFloat(chgEl.textContent);
             if (!isNaN(chg)) {
                 const delta = (Math.random() - 0.5) * 0.12;
