@@ -451,7 +451,7 @@
         const val = parseFloat(amountInput.value);
         if (isNaN(val) || val <= 0 || val > balance) return;
 
-        const newBalance = balance - val;
+                const newBalance = balance - val;         try {             localStorage.setItem('mt_balance', String(newBalance));         } catch (_) {}          // Log the transaction         try {             const method = document.querySelector('input[name="method"]:checked').value;             const transactions = JSON.parse(localStorage.getItem('mt_transactions') || '[]');             transactions.unshift({                 type: 'withdraw',                 amount: val,                 method: method,                 date: new Date().toISOString()             });             localStorage.setItem('mt_transactions', JSON.stringify(transactions));         } catch (_) {};
         try {
             localStorage.setItem('mt_balance', String(newBalance));
         } catch (_) {}
